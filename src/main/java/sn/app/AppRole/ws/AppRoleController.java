@@ -1,17 +1,14 @@
 package sn.app.AppRole.ws;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sn.app.AppRole.dao.AppRoleRepository;
 import sn.app.AppRole.entities.AppRoleEntity;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/roles")
 @AllArgsConstructor // permet de creer une instance de l'objet appele
 public class AppRoleController {
     private AppRoleRepository appRoleRepository;
@@ -23,5 +20,9 @@ public class AppRoleController {
     @GetMapping(path = "/all")
     public List<AppRoleEntity> findAll(){
         return appRoleRepository.findAll();
+    }
+    @GetMapping(path = "/login")//Get Request
+    public AppRoleEntity login(@RequestParam String email, @RequestParam String password){
+        return appRoleRepository.findByEmailAndPassword(email,password);
     }
 }
